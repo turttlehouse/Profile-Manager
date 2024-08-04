@@ -8,7 +8,7 @@ const Home = ({ setRecords, records }) => {
 
   return (
     <>
-      <div className="container mx-auto p-1">
+      <div className="p-1">
 
         <div className="flex flex-col md:flex-row">
 
@@ -30,7 +30,7 @@ const Home = ({ setRecords, records }) => {
           </div>
 
         </div>
-        
+
       </div>
     </>
   );
