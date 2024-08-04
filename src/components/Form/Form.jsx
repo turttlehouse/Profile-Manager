@@ -19,7 +19,7 @@ const Form = ({ setRecords, records }) => {
 
   const validateFileType = (file) => validateImageType(file);
 
-  // Watching fields for real-time validation
+  // Watch fields for real-time validation
   const name = watch("name");
   const email = watch("email");
   const phone = watch("phone");
@@ -72,11 +72,27 @@ const Form = ({ setRecords, records }) => {
     }
   }, [name, email, phone, profilePicture, setError, clearErrors]);
 
+  // Converting  file to Base64 for handling image
+  const convertFileToBase64 = (file, callback) => {
+    const reader = new FileReader();
+    reader.onloadend = () => callback(reader.result);
+    reader.readAsDataURL(file);
+  };
+
   const onSubmit = (data)=>{
 
-    setRecords([...records,data]);
-    reset();
-    
+    convertFileToBase64(data.profilePicture[0], (base64String) => {
+
+      // Saving Base64 string to local storage
+      localStorage.setItem('profilePicture', base64String);
+
+      setRecords([...records, { ...data, profilePicture: base64String }]);
+
+      reset();
+    });
+
+    // setRecords([...records,data]);
+    // reset();
   }
 
   return (
@@ -190,8 +206,8 @@ const Form = ({ setRecords, records }) => {
                 {...register("country", { required: "Country is required" })}
                 className="peer h-full w-full rounded-md border border-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               >
-                {countries.map((country) => (
-                  <option key={country} value={country}>
+                {countries.map((country,index) => (
+                  <option key={index} value={country}>
                     {country}
                   </option>
                 ))}
