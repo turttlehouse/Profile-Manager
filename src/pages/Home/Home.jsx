@@ -14,7 +14,7 @@ const Home = ({ setRecords, records }) => {
             <Form setRecords={setRecords} records={records} />
           </div>
           <div className="flex-1 min-w-[300px]">
-            <Table records={records} />
+            <Table setRecords={setRecords} records={records} />
             <button
               className='mt-4 bg-black text-white rounded px-4 py-2'
               onClick={() => navigate('/profiles')}
