@@ -34,6 +34,17 @@ const Table = ({ records,setRecords}) => {
     setIsEditing(false);
 
   }
+
+
+   // Pagination state variables
+   const [currentPage, setCurrentPage] = useState(0);
+   const recordsPerPage = 5;
+
+  //Getting the records to display for the current page
+  const currentRecords = records.slice(
+    currentPage * recordsPerPage,
+    (currentPage + 1) * recordsPerPage
+  );
   
   return (
     <>
@@ -73,14 +84,14 @@ const Table = ({ records,setRecords}) => {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                    {records.length === 0 ? (
+                    {currentRecords.length === 0 ? (
                       <tr>
                         <td colSpan="6" className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 text-center">
                           No records found
                         </td>
                       </tr>
                     ) : (
-                      records.map((record, index) => (
+                      currentRecords.map((record, index) => (
                         <tr key={index}>
                           <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                             <div className="inline-flex items-center gap-x-3">
