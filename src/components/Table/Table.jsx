@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import EditModal from '../Modal/EditModal';
 
 const Table = ({ records,setRecords}) => {
 
+  const [isEditing,setIsEditing] = useState(false);
+
   const handleDelete = (index)=>{
+    // console.log('delete clicked');
 
     const updatedRecords = records.filter((item, i)=> i !== index);
     setRecords(updatedRecords);
     
   }
+  const handleEdit =(index)=>{
+    console.log('edit clicked');
+    setIsEditing(true);
+  }
 
   
   return (
     <>
+    {
+      isEditing && (
+        <EditModal/>
+      )
+    }
       <section className="container">
         <div className="flex flex-col">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -63,7 +76,7 @@ const Table = ({ records,setRecords}) => {
                           <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{record.country}</td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
                             <div className="flex items-center gap-x-6">
-                              <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
+                              <button onClick={()=>handleEdit(index)} className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
                                 Edit
                               </button>
                               <button onClick={()=>handleDelete(index)} className="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
