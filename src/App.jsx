@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
 import useLocalStorage from './hooks/useLocalStorage'
 import Home from './pages/Home/Home';
 import Profiles from './pages/Profiles/Profiles';
+import './App.css'
 
 function App() {
 
