@@ -86,9 +86,9 @@ const Table = ({ records,setRecords}) => {
                       <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         Email
                       </th>
-                      <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                      {/* <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         Date of Birth
-                      </th>
+                      </th> */}
                       <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         Country
                       </th>
@@ -114,7 +114,7 @@ const Table = ({ records,setRecords}) => {
                           </td>
                           <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{record.name}</td>
                           <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{record.email}</td>
-                          <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{record.dateOfBirth}</td>
+                          {/* <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{record.dateOfBirth}</td> */}
                           <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{record.country}</td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
                             <div className="flex items-center gap-x-6">
