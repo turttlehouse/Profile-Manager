@@ -12,20 +12,37 @@ const Table = ({ records,setRecords}) => {
     setRecords(updatedRecords);
     
   }
+
+  const [currentRecord,setCurrentRecord] = useState(null);
+
   const handleEdit =(index)=>{
-    console.log('edit clicked');
+    
+    // console.log('edit clicked');
+
+    setCurrentRecord({...records[index],index});
+    
     setIsEditing(true);
   }
 
+
+  const updateRecord = (updatedRecord)=>{
+
+    const updatedRecords = records.map((record, index) =>
+      index === updatedRecord.index ? updatedRecord : record
+    );
+    setRecords(updatedRecords);
+    setIsEditing(false);
+
+  }
   
   return (
     <>
     {
       isEditing && (
-        <EditModal/>
+        <EditModal handleClose={()=>setIsEditing(false)} record={currentRecord} updateRecord={updateRecord}/>
       )
     }
-      <section className="container">
+      <section className="container mt-10">
         <div className="flex flex-col">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -76,10 +93,10 @@ const Table = ({ records,setRecords}) => {
                           <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{record.country}</td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
                             <div className="flex items-center gap-x-6">
-                              <button onClick={()=>handleEdit(index)} className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
+                              <button onClick={()=>handleEdit(index)} className="bg-blue-500 text-white rounded px-2 py-1  font-bold transition-colors duration-200 dark:hover:bg-blue-600 dark:text-gray-300 focus:outline-none">
                                 Edit
                               </button>
-                              <button onClick={()=>handleDelete(index)} className="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                              <button onClick={()=>handleDelete(index)} className="bg-red-500 text-white rounded px-1 py-1 font-bold transition-colors duration-200 hover:bg-red-600 focus:outline-none">
                                 Delete
                               </button>
                             </div>
@@ -94,15 +111,15 @@ const Table = ({ records,setRecords}) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-6">
-          <a href="#" className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+        <div className="flex items-center justify-between mt-2">
+          <a href="#" className="flex items-center px-3 py-1 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 rtl:-scale-x-100">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
             </svg>
             <span>Previous</span>
           </a>
 
-          <a href="#" className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+          <a href="#" className="flex items-center px-5 py-1 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
             <span>Next</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5 rtl:-scale-x-100">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
