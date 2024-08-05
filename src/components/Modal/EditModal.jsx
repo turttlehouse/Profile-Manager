@@ -90,7 +90,7 @@ const EditModal = ({handleClose,record,updateRecord}) => {
             className="mb-2 p-2 border rounded w-full"
             />
             <input
-            type="text"
+            type="number"
             name="province"
             value={updatedRecord.province}
             onChange={handleInputChange}

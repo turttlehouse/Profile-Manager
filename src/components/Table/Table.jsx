@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import EditModal from '../Modal/EditModal';
 
+
 const Table = ({ records,setRecords}) => {
 
+  //state for search query
+  const [searchQuery,setSearchQuery] = useState('');
+  
+  //filtering records based on search query
+  const filteredRecords = records.filter(record=>
+    record.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    record.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   const [isEditing,setIsEditing] = useState(false);
 
   const handleDelete = (index)=>{
@@ -41,13 +50,23 @@ const Table = ({ records,setRecords}) => {
    const recordsPerPage = 5;
 
   //Getting the records to display for the current page
-  const currentRecords = records.slice(
+  // const currentRecords = records.slice(
+  //   currentPage * recordsPerPage,
+  //   (currentPage + 1) * recordsPerPage
+  // );
+  const currentRecords = filteredRecords.slice(
     currentPage * recordsPerPage,
     (currentPage + 1) * recordsPerPage
   );
 
+  // const handleNextPage = ()=>{
+  //   if((currentPage + 1) * recordsPerPage < records.length)
+  //   {
+  //     setCurrentPage(currentPage + 1);
+  //   }
+  // }
   const handleNextPage = ()=>{
-    if((currentPage + 1) * recordsPerPage < records.length)
+    if((currentPage + 1) * recordsPerPage < filteredRecords.length)
     {
       setCurrentPage(currentPage + 1);
     }
@@ -59,7 +78,7 @@ const Table = ({ records,setRecords}) => {
       setCurrentPage(currentPage-1);
     }
   }
-  
+
   return (
     <>
     {
@@ -72,6 +91,11 @@ const Table = ({ records,setRecords}) => {
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
               <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+
+                <input type="text" placeholder='Search...' value={searchQuery}
+                onChange={(e)=>setSearchQuery(e.target.value)}
+                className='p-2 border rounded w-full' />
+                
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-50 dark:bg-gray-800">
                     <tr>
