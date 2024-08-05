@@ -10,7 +10,7 @@ const Home = ({ setRecords, records }) => {
     <>
       <div className="container mx-auto p-1">
 
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col justify-between md:flex-row">
 
           <div className="flex-1 min-w-[300px]">
             <Form setRecords={setRecords} records={records} />
